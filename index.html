@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl" class="dark">
 <head>
+    <link rel="manifest" href="./manifest.json">
+    <meta name="theme-color" content="#1A2A1A">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="مُسْلِم">
+    <link rel="apple-touch-icon" href="icons/icon-192x192.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> مُسْلِم </title>
@@ -853,5 +859,20 @@ function renderRadioPage() {
         async function fetchPrayerTimes() { try { const response = await fetch(`https://api.aladhan.com/v1/timingsByCity?city=${state.prayerCity}&country=${state.prayerCountry}&method=5`); const data = await response.json(); if (data.code === 200) { state.prayerTimes = data.data; renderPrayerTimesContent(); } else { document.getElementById('prayer-content').innerHTML = '<p class="text-warm">حدث خطأ في جلب البيانات</p>'; } } catch (e) { console.error(e); const content = document.getElementById('prayer-content'); if(content) content.innerHTML = '<p class="text-warm">تأكد من اتصال الإنترنت</p>'; } }
         function renderPrayerTimesContent() { const content = document.getElementById('prayer-content'); if (!content || !state.prayerTimes) return; const timings = state.prayerTimes.timings; const hijriMap = state.prayerTimes.date.hijri; const dateStr = `${hijriMap.weekday.ar} ${hijriMap.day} ${hijriMap.month.ar} ${hijriMap.year}`; const prayers = [{ name: 'الفجر', time: timings.Fajr, icon: 'sunrise' }, { name: 'الشروق', time: timings.Sunrise, icon: 'sun' }, { name: 'الظهر', time: timings.Dhuhr, icon: 'sun' }, { name: 'العصر', time: timings.Asr, icon: 'cloud-sun' }, { name: 'المغرب', time: timings.Maghrib, icon: 'sunset' }, { name: 'العشاء', time: timings.Isha, icon: 'moon' }]; content.innerHTML = `<div class="w-full space-y-6"><div class="bg-gradient-to-br from-gold to-warm rounded-3xl p-6 text-deep text-center shadow-lg relative overflow-hidden"><div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/arabesque.png')] opacity-10"></div><h3 class="text-2xl font-bold font-quran mb-2">${state.prayerCity}</h3><p class="opacity-90 font-ui">${dateStr}</p></div><div class="grid gap-4">${prayers.map(p => `<div class="bg-card p-4 rounded-2xl flex items-center justify-between border border-gold/30 hover:border-gold/60 transition-all group"><div class="flex items-center gap-4"><div class="w-10 h-10 rounded-full bg-gold/20 flex items-center justify-center text-gold group-hover:bg-gold group-hover:text-deep transition-colors"><i data-lucide="${p.icon}" class="w-5 h-5"></i></div><span class="font-bold text-lg text-gray-200">${p.name}</span></div><span class="font-mono text-xl font-bold text-gold">${p.time}</span></div>`).join('')}</div></div>`; lucide.createIcons(); }
     </script>
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('./sw.js')
+            .then(registration => {
+              console.log('تم تشغيل التطبيق بنجاح (ServiceWorker Registered)');
+            })
+            .catch(error => {
+              console.log('حدث خطأ في التشغيل:', error);
+            });
+        });
+      }
+    </script>
+</body>
+</html>
 </body>
 </html>
