@@ -201,10 +201,6 @@
                 <span class="font-bold text-gray-200 group-hover:text-gold transition-colors">الأحاديث</span>
             </button>
             
-            <button onclick="switchTab('hisn')" class="w-full flex items-center gap-4 p-4 rounded-2xl hover:bg-gold/20 transition-all group">
-                <i data-lucide="shield" class="w-5 h-5 text-warm group-hover:text-gold transition-colors"></i>
-                <span class="font-bold text-gray-200 group-hover:text-gold transition-colors">حصن المسلم</span>
-            </button>
             
             <button onclick="switchTab('prayers')" class="w-full flex items-center gap-4 p-4 rounded-2xl hover:bg-gold/20 transition-all group">
                 <i data-lucide="clock" class="w-5 h-5 text-warm group-hover:text-gold transition-colors"></i>
@@ -508,16 +504,6 @@
             ]
         };
 
-        const HISN_DATA = [
-            {
-                id: 1,
-                category: "أذكار الصباح والمساء",
-                adhkar: [
-                    { text: "آية الكرسي: (اللَّهُ لَا إِلَٰهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ...)", count: 1 },
-                    { text: "سُبْحَانَ اللهِ وَبِحَمْدِهِ.", count: 100 }
-                ]
-            }
-        ];
 
         // --- الحالة (State) ---
         let state = {
@@ -590,7 +576,7 @@
         }
 
         function updateBottomNav() {
-            const tabs = ['home', 'quran', 'tasbeeh', 'audio', 'hadith', 'hisn', 'prayers', 'radio'];
+            const tabs = ['home', 'quran', 'tasbeeh', 'audio', 'hadith', 'prayers', 'radio'];
             tabs.forEach(tab => {
                 const btn = document.getElementById(`btn-${tab}`);
                 if (!btn) return;
@@ -830,13 +816,7 @@ function renderRadioPage() {
             lucide.createIcons();
         }
 
-        function renderHisn() {
-            if (state.activeHisnCategory) {
-                return `<div class="animate-fade-in pb-20"><div class="sticky top-0 z-20 bg-deep/90 backdrop-blur-md py-4 mb-4 flex items-center gap-4 border-b border-gold/30"><button onclick="closeHisnCategory()" class="p-2 rounded-xl hover:bg-gold/20 transition-colors"><i data-lucide="arrow-right" class="w-6 h-6 text-gold"></i></button><h2 class="font-bold text-lg text-gray-100">${state.activeHisnCategory.category}</h2></div><div class="space-y-4">${state.activeHisnCategory.adhkar.map(dhikr => `<div class="bg-card p-6 rounded-3xl border border-gold/30 shadow-sm hover:shadow-lg transition-all relative overflow-hidden group"><div class="absolute top-0 right-0 w-1 h-full bg-gold opacity-50 group-hover:opacity-100 transition-opacity"></div><p class="text-xl font-medium font-quran leading-loose mb-4 text-gray-100">${dhikr.text}</p><span class="text-xs text-gold bg-gold/20 px-3 py-1 rounded-full font-bold"><i data-lucide="repeat" class="w-3 h-3 inline-block ml-1"></i> ${dhikr.count} مرة</span></div>`).join('')}</div></div>`;
-            } else {
-                return `<div class="animate-fade-in space-y-6 pb-20"><h2 class="text-2xl font-bold text-gray-100 mb-6 border-r-4 border-gold pr-4">حصن المسلم</h2><div class="grid grid-cols-1 md:grid-cols-2 gap-4">${HISN_DATA.map(cat => `<div onclick="openHisnCategory(${cat.id})" class="bg-card p-5 rounded-2xl shadow-sm hover:shadow-lg cursor-pointer flex items-center justify-between transition-all group border border-transparent hover:border-gold/30"><div class="flex items-center gap-4"><div class="w-12 h-12 rounded-xl bg-gold/20 flex items-center justify-center text-gold group-hover:scale-110 transition-transform"><i data-lucide="book" class="w-6 h-6"></i></div><span class="font-bold text-lg text-gray-200 group-hover:text-gold transition-colors">${cat.category}</span></div><i data-lucide="chevron-left" class="w-5 h-5 text-warm/40 group-hover:text-gold transition-colors"></i></div>`).join('')}</div></div>`;
-            }
-        }
+
 
         function renderAudioSection() {
             if (state.audio.view === 'reciters') {
