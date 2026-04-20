@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl" class="dark">
-<head> 
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> مُسْلِم </title>
@@ -415,7 +415,6 @@
         });
 
         const RECITERS = [
-            { id: 'afs', name: 'مشاري العفاسي', server: 'https://server8.mp3quran.net/afs/' },
             { id: 'islam_sobhi', name: 'اسلام صبحي', server: 'https://server14.mp3quran.net/islam/Rewayat-Hafs-A-n-Assem/' },
             { id: 'hazza', name: 'هزاع البلوشي', server: 'https://server11.mp3quran.net/hazza/' },
             { id: 'abdulbasit', name: 'عبد الباسط عبد الصمد', server: 'https://server7.mp3quran.net/basit/' },
@@ -601,133 +600,129 @@
         }
 
         // دالة عرض صفحة الإذاعة
-// دالة عرض صفحة الإذاعة المصرية
-function renderRadioPage() {
-    return `
-        <div class="animate-fade-in pb-20">
-            <h2 class="text-2xl font-bold text-gray-100 mb-6 border-r-4 border-gold pr-4">📡 ${RADIO_DATA.name}</h2>
-            
-            <!-- مشغل البث المباشر المحسن -->
-            <div class="bg-gradient-to-br from-darkgreen to-deep rounded-3xl p-6 mb-8 shadow-xl border border-gold/30">
-                <div class="text-center mb-6">
-                    <div class="inline-block p-4 bg-gold/20 rounded-full mb-4 animate-pulse">
-                        <i data-lucide="radio" class="w-12 h-12 text-gold"></i>
-                    </div>
-                    <h3 class="text-2xl font-bold text-gold mb-2">بث مباشر</h3>
-                    <p class="text-warm/80">استمع إلى تلاوات خاشعة على الهواء مباشرة</p>
-                </div>
-                
-                <div class="flex justify-center mb-6">
-                    <audio id="radio-audio" controls class="w-full max-w-md rounded-lg bg-card">
-                        <source src="https://stream.radiojar.com/8s5u5tpdtwzuv" type="audio/mpeg">
-                        <source src="https://stream.radiojar.com/4s5u5tpdtwzuv" type="audio/mpeg">
-                        <source src="https://stream.radiojar.com/6s5u5tpdtwzuv" type="audio/mpeg">
-                        متصفحك لا يدعم تشغيل الصوت
-                    </audio>
-                </div>
-                
-                <div class="text-center text-sm text-warm/60">
-                    <i data-lucide="info" class="w-4 h-4 inline-block ml-1"></i>
-                    إذاعة القرآن الكريم - بث حي من القاهرة 24 ساعة
-                </div>
-            </div>
-            
-            <!-- روابط إذاعات إضافية -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-                <div class="bg-card p-4 rounded-2xl border border-gold/30 hover:border-gold/60 transition-all cursor-pointer" onclick="playRadioStream('https://stream.radiojar.com/8s5u5tpdtwzuv', 'إذاعة القرآن الكريم - القاهرة')">
-                    <div class="flex items-center gap-3 mb-2">
-                        <div class="w-10 h-10 rounded-full bg-gold/20 flex items-center justify-center">
-                            <i data-lucide="radio" class="w-5 h-5 text-gold"></i>
-                        </div>
-                        <h4 class="font-bold text-gray-200">القاهرة - مصر</h4>
-                    </div>
-                    <p class="text-xs text-warm/60">إذاعة القرآن الكريم الرسمية</p>
-                </div>
-                
-                <div class="bg-card p-4 rounded-2xl border border-gold/30 hover:border-gold/60 transition-all cursor-pointer" onclick="playRadioStream('https://stream.radiojar.com/4s5u5tpdtwzuv', 'إذاعة القرآن الكريم - مكة')">
-                    <div class="flex items-center gap-3 mb-2">
-                        <div class="w-10 h-10 rounded-full bg-gold/20 flex items-center justify-center">
-                            <i data-lucide="radio" class="w-5 h-5 text-gold"></i>
-                        </div>
-                        <h4 class="font-bold text-gray-200">مكة المكرمة</h4>
-                    </div>
-                    <p class="text-xs text-warm/60">بث مباشر من الحرم المكي</p>
-                </div>
-                
-                <div class="bg-card p-4 rounded-2xl border border-gold/30 hover:border-gold/60 transition-all cursor-pointer" onclick="playRadioStream('https://stream.radiojar.com/6s5u5tpdtwzuv', 'إذاعة القرآن الكريم - المدينة')">
-                    <div class="flex items-center gap-3 mb-2">
-                        <div class="w-10 h-10 rounded-full bg-gold/20 flex items-center justify-center">
-                            <i data-lucide="radio" class="w-5 h-5 text-gold"></i>
-                        </div>
-                        <h4 class="font-bold text-gray-200">المدينة المنورة</h4>
-                    </div>
-                    <p class="text-xs text-warm/60">بث مباشر من المسجد النبوي</p>
-                </div>
-            </div>
-            
-            <!-- معلومات الإذاعة -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-                <div class="bg-card p-5 rounded-2xl border border-gold/30">
-                    <div class="flex items-center gap-3 mb-4">
-                        <div class="w-10 h-10 rounded-full bg-gold/20 flex items-center justify-center">
-                            <i data-lucide="mic" class="w-5 h-5 text-gold"></i>
-                        </div>
-                        <h3 class="font-bold text-lg text-gray-100">عن الإذاعة</h3>
-                    </div>
-                    <p class="text-gray-300 leading-relaxed">
-                        إذاعة القرآن الكريم المصرية هي أول إذاعة متخصصة في تلاوة القرآن الكريم، 
-                        انطلقت عام 1964م، وتبث على مدار الساعة تلاوات خاشعة لأشهر القراء.
-                    </p>
-                </div>
-                
-                <div class="bg-card p-5 rounded-2xl border border-gold/30">
-                    <div class="flex items-center gap-3 mb-4">
-                        <div class="w-10 h-10 rounded-full bg-gold/20 flex items-center justify-center">
-                            <i data-lucide="headphones" class="w-5 h-5 text-gold"></i>
-                        </div>
-                        <h3 class="font-bold text-lg text-gray-100">أشهر القراء</h3>
-                    </div>
-                    <p class="text-gray-300 leading-relaxed">
-                        عبد الباسط عبد الصمد - محمد صديق المنشاوي - مصطفى إسماعيل - 
-                        محمود خليل الحصري - محمد رفعت - عبد الفتاح الشعشاعي
-                    </p>
-                </div>
-            </div>
-            
-            <!-- جدول البرامج -->
-            <div class="bg-card rounded-2xl border border-gold/30 overflow-hidden">
-                <div class="bg-gold/20 p-4 border-b border-gold/30">
-                    <div class="flex items-center gap-3">
-                        <i data-lucide="calendar" class="w-5 h-5 text-gold"></i>
-                        <h3 class="font-bold text-lg text-gray-100">جدول البرامج اليومية</h3>
-                    </div>
-                </div>
-                <div class="divide-y divide-gold/20">
-                    ${RADIO_DATA.schedule.map(p => `
-                        <div class="flex items-center justify-between p-4 hover:bg-gold/5 transition-colors">
-                            <div class="flex items-center gap-3">
-                                <div class="w-16 text-gold font-mono font-bold">${p.time}</div>
-                                <span class="text-gray-300">${p.program}</span>
+        function renderRadioPage() {
+            return `
+                <div class="animate-fade-in pb-20">
+                    <h2 class="text-2xl font-bold text-gray-100 mb-6 border-r-4 border-gold pr-4">📡 ${RADIO_DATA.name}</h2>
+                    
+                    <!-- مشغل البث المباشر المحسن -->
+                    <div class="bg-gradient-to-br from-darkgreen to-deep rounded-3xl p-6 mb-8 shadow-xl border border-gold/30">
+                        <div class="text-center mb-6">
+                            <div class="inline-block p-4 bg-gold/20 rounded-full mb-4 animate-pulse">
+                                <i data-lucide="radio" class="w-12 h-12 text-gold"></i>
                             </div>
-                            <div class="w-2 h-2 rounded-full bg-gold animate-pulse"></div>
+                            <h3 class="text-2xl font-bold text-gold mb-2">بث مباشر</h3>
+                            <p class="text-warm/80">استمع إلى تلاوات خاشعة على الهواء مباشرة</p>
                         </div>
-                    `).join('')}
+                        
+                        <div class="flex justify-center mb-6">
+                            <audio id="radio-audio" controls class="w-full max-w-md rounded-lg bg-card">
+                                <source src="https://stream.radiojar.com/8s5u5tpdtwzuv" type="audio/mpeg">
+                                <source src="https://stream.radiojar.com/4s5u5tpdtwzuv" type="audio/mpeg">
+                                <source src="https://stream.radiojar.com/6s5u5tpdtwzuv" type="audio/mpeg">
+                                متصفحك لا يدعم تشغيل الصوت
+                            </audio>
+                        </div>
+                        
+                        <div class="text-center text-sm text-warm/60">
+                            <i data-lucide="info" class="w-4 h-4 inline-block ml-1"></i>
+                            إذاعة القرآن الكريم - بث حي من القاهرة 24 ساعة
+                        </div>
+                    </div>
+                    
+                    <!-- روابط إذاعات إضافية -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+                        <div class="bg-card p-4 rounded-2xl border border-gold/30 hover:border-gold/60 transition-all cursor-pointer" onclick="playRadioStream('https://stream.radiojar.com/8s5u5tpdtwzuv', 'إذاعة القرآن الكريم - القاهرة')">
+                            <div class="flex items-center gap-3 mb-2">
+                                <div class="w-10 h-10 rounded-full bg-gold/20 flex items-center justify-center">
+                                    <i data-lucide="radio" class="w-5 h-5 text-gold"></i>
+                                </div>
+                                <h4 class="font-bold text-gray-200">القاهرة - مصر</h4>
+                            </div>
+                            <p class="text-xs text-warm/60">إذاعة القرآن الكريم الرسمية</p>
+                        </div>
+                        
+                        <div class="bg-card p-4 rounded-2xl border border-gold/30 hover:border-gold/60 transition-all cursor-pointer" onclick="playRadioStream('https://stream.radiojar.com/4s5u5tpdtwzuv', 'إذاعة القرآن الكريم - مكة')">
+                            <div class="flex items-center gap-3 mb-2">
+                                <div class="w-10 h-10 rounded-full bg-gold/20 flex items-center justify-center">
+                                    <i data-lucide="radio" class="w-5 h-5 text-gold"></i>
+                                </div>
+                                <h4 class="font-bold text-gray-200">مكة المكرمة</h4>
+                            </div>
+                            <p class="text-xs text-warm/60">بث مباشر من الحرم المكي</p>
+                        </div>
+                        
+                        <div class="bg-card p-4 rounded-2xl border border-gold/30 hover:border-gold/60 transition-all cursor-pointer" onclick="playRadioStream('https://stream.radiojar.com/6s5u5tpdtwzuv', 'إذاعة القرآن الكريم - المدينة')">
+                            <div class="flex items-center gap-3 mb-2">
+                                <div class="w-10 h-10 rounded-full bg-gold/20 flex items-center justify-center">
+                                    <i data-lucide="radio" class="w-5 h-5 text-gold"></i>
+                                </div>
+                                <h4 class="font-bold text-gray-200">المدينة المنورة</h4>
+                            </div>
+                            <p class="text-xs text-warm/60">بث مباشر من المسجد النبوي</p>
+                        </div>
+                    </div>
+                    
+                    <!-- معلومات الإذاعة -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                        <div class="bg-card p-5 rounded-2xl border border-gold/30">
+                            <div class="flex items-center gap-3 mb-4">
+                                <div class="w-10 h-10 rounded-full bg-gold/20 flex items-center justify-center">
+                                    <i data-lucide="mic" class="w-5 h-5 text-gold"></i>
+                                </div>
+                                <h3 class="font-bold text-lg text-gray-100">عن الإذاعة</h3>
+                            </div>
+                            <p class="text-gray-300 leading-relaxed">
+                                إذاعة القرآن الكريم المصرية هي أول إذاعة متخصصة في تلاوة القرآن الكريم، 
+                                انطلقت عام 1964م، وتبث على مدار الساعة تلاوات خاشعة لأشهر القراء.
+                            </p>
+                        </div>
+                        
+                        <div class="bg-card p-5 rounded-2xl border border-gold/30">
+                            <div class="flex items-center gap-3 mb-4">
+                                <div class="w-10 h-10 rounded-full bg-gold/20 flex items-center justify-center">
+                                    <i data-lucide="headphones" class="w-5 h-5 text-gold"></i>
+                                </div>
+                                <h3 class="font-bold text-lg text-gray-100">أشهر القراء</h3>
+                            </div>
+                            <p class="text-gray-300 leading-relaxed">
+                                عبد الباسط عبد الصمد - محمد صديق المنشاوي - مصطفى إسماعيل - 
+                                محمود خليل الحصري - محمد رفعت - عبد الفتاح الشعشاعي
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <!-- جدول البرامج -->
+                    <div class="bg-card rounded-2xl border border-gold/30 overflow-hidden">
+                        <div class="bg-gold/20 p-4 border-b border-gold/30">
+                            <div class="flex items-center gap-3">
+                                <i data-lucide="calendar" class="w-5 h-5 text-gold"></i>
+                                <h3 class="font-bold text-lg text-gray-100">جدول البرامج اليومية</h3>
+                            </div>
+                        </div>
+                        <div class="divide-y divide-gold/20">
+                            ${RADIO_DATA.schedule.map(p => `
+                                <div class="flex items-center justify-between p-4 hover:bg-gold/5 transition-colors">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-16 text-gold font-mono font-bold">${p.time}</div>
+                                        <span class="text-gray-300">${p.program}</span>
+                                    </div>
+                                    <div class="w-2 h-2 rounded-full bg-gold animate-pulse"></div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                    
+                    <!-- تذكير -->
+                    <div class="mt-8 p-5 bg-gold/10 rounded-2xl border border-gold/30 text-center">
+                        <p class="text-warm">
+                            <i data-lucide="heart" class="w-4 h-4 inline-block ml-1 text-gold"></i>
+                            استمع إلى القرآن الكريم في كل وقت، فهو راحة للقلب ونور للصدر
+                        </p>
+                    </div>
                 </div>
-            </div>
-            
-            <!-- تذكير -->
-            <div class="mt-8 p-5 bg-gold/10 rounded-2xl border border-gold/30 text-center">
-                <p class="text-warm">
-                    <i data-lucide="heart" class="w-4 h-4 inline-block ml-1 text-gold"></i>
-                    استمع إلى القرآن الكريم في كل وقت، فهو راحة للقلب ونور للصدر
-                </p>
-            </div>
-        </div>
-    `;
-}
-        // دوال أخرى موجودة مسبقاً...
-        function openHisnCategory(id) { state.activeHisnCategory = HISN_DATA.find(c => c.id === id); render(); }
-        function closeHisnCategory() { state.activeHisnCategory = null; render(); }
+            `;
+        }
 
         function maximizePlayer() {
             state.isPlayerOpen = true;
@@ -852,6 +847,16 @@ function renderRadioPage() {
         function renderPrayerTimesStub() { return `<div class="animate-fade-in pb-20"><h2 class="text-2xl font-bold text-gray-100 mb-6 border-r-4 border-gold pr-4">مواقيت الصلاة</h2><div id="prayer-content" class="min-h-[300px] flex items-center justify-center"><div class="w-10 h-10 border-4 border-gold border-t-transparent rounded-full animate-spin"></div></div></div>`; }
         async function fetchPrayerTimes() { try { const response = await fetch(`https://api.aladhan.com/v1/timingsByCity?city=${state.prayerCity}&country=${state.prayerCountry}&method=5`); const data = await response.json(); if (data.code === 200) { state.prayerTimes = data.data; renderPrayerTimesContent(); } else { document.getElementById('prayer-content').innerHTML = '<p class="text-warm">حدث خطأ في جلب البيانات</p>'; } } catch (e) { console.error(e); const content = document.getElementById('prayer-content'); if(content) content.innerHTML = '<p class="text-warm">تأكد من اتصال الإنترنت</p>'; } }
         function renderPrayerTimesContent() { const content = document.getElementById('prayer-content'); if (!content || !state.prayerTimes) return; const timings = state.prayerTimes.timings; const hijriMap = state.prayerTimes.date.hijri; const dateStr = `${hijriMap.weekday.ar} ${hijriMap.day} ${hijriMap.month.ar} ${hijriMap.year}`; const prayers = [{ name: 'الفجر', time: timings.Fajr, icon: 'sunrise' }, { name: 'الشروق', time: timings.Sunrise, icon: 'sun' }, { name: 'الظهر', time: timings.Dhuhr, icon: 'sun' }, { name: 'العصر', time: timings.Asr, icon: 'cloud-sun' }, { name: 'المغرب', time: timings.Maghrib, icon: 'sunset' }, { name: 'العشاء', time: timings.Isha, icon: 'moon' }]; content.innerHTML = `<div class="w-full space-y-6"><div class="bg-gradient-to-br from-gold to-warm rounded-3xl p-6 text-deep text-center shadow-lg relative overflow-hidden"><div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/arabesque.png')] opacity-10"></div><h3 class="text-2xl font-bold font-quran mb-2">${state.prayerCity}</h3><p class="opacity-90 font-ui">${dateStr}</p></div><div class="grid gap-4">${prayers.map(p => `<div class="bg-card p-4 rounded-2xl flex items-center justify-between border border-gold/30 hover:border-gold/60 transition-all group"><div class="flex items-center gap-4"><div class="w-10 h-10 rounded-full bg-gold/20 flex items-center justify-center text-gold group-hover:bg-gold group-hover:text-deep transition-colors"><i data-lucide="${p.icon}" class="w-5 h-5"></i></div><span class="font-bold text-lg text-gray-200">${p.name}</span></div><span class="font-mono text-xl font-bold text-gold">${p.time}</span></div>`).join('')}</div></div>`; lucide.createIcons(); }
+        
+        // إضافة دالة playRadioStream
+        window.playRadioStream = function(url, name) {
+            const radioAudio = document.getElementById('radio-audio');
+            if (radioAudio) {
+                radioAudio.src = url;
+                radioAudio.play();
+                alert(`تم تشغيل: ${name}`);
+            }
+        }
     </script>
 </body>
 </html>
